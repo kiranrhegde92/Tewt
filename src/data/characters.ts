@@ -1,0 +1,58 @@
+import { Character } from "@/types";
+
+export const characters: Record<string, Character> = {
+  pixel: {
+    id: "pixel",
+    name: "Professor Pixel",
+    role: "Main Guide",
+    avatar: "🧙‍♂️",
+    personality: "Wise but goofy, loves programming puns",
+    catchphrase: "Let's pixel-perfect your knowledge!",
+    color: "#8B5CF6",
+  },
+  bug: {
+    id: "bug",
+    name: "Bug",
+    role: "Debugger Sidekick",
+    avatar: "🐛",
+    personality: "Mischievous, introduces errors for you to fix",
+    catchphrase: "Oops! Looks like I broke something again...",
+    color: "#EF4444",
+  },
+  algo: {
+    id: "algo",
+    name: "Algo the Owl",
+    role: "Algorithm Teacher",
+    avatar: "🦉",
+    personality: "Methodical, breaks down steps visually",
+    catchphrase: "Let's break this down, step by step!",
+    color: "#F59E0B",
+  },
+  stackie: {
+    id: "stackie",
+    name: "Stackie",
+    role: "Tech Stack Guide",
+    avatar: "🤖",
+    personality: "Trendy, knows all the frameworks",
+    catchphrase: "This framework is going to blow your mind!",
+    color: "#3B82F6",
+  },
+  captain: {
+    id: "captain",
+    name: "Captain Deploy",
+    role: "DevOps Mentor",
+    avatar: "🚀",
+    personality: "Military humor, obsessed with pipelines",
+    catchphrase: "Deploy first, ask questions later! Just kidding.",
+    color: "#10B981",
+  },
+  sally: {
+    id: "sally",
+    name: "Stylesheet Sally",
+    role: "CSS/UI Teacher",
+    avatar: "🎨",
+    personality: "Artistic, dramatic about alignment",
+    catchphrase: "If it's not centered, is it even worth shipping?",
+    color: "#EC4899",
+  },
+};
