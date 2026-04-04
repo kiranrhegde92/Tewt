@@ -4,174 +4,268 @@ export const javaOOP: Lesson = {
   id: "java-oop",
   trackId: "java-kingdom",
   title: "The OOP Kingdom",
-  description: "Rule with Classes, Objects, and Inheritance — the pillars of Java!",
+  description:
+    "Learn abstraction, encapsulation, inheritance, and polymorphism the Java way.",
   xpReward: 160,
   difficulty: "beginner",
-  estimatedMinutes: 12,
+  estimatedMinutes: 14,
   steps: [
     {
       type: "story",
       character: "pixel",
-      dialogue: "Welcome to the Java Kingdom! ☕ Java is the language of OBJECT-ORIENTED PROGRAMMING (OOP). Think of OOP as building a kingdom — you define BLUEPRINTS (classes) and then create actual THINGS (objects) from those blueprints. Let's learn how this kingdom works!",
+      dialogue:
+        "Welcome to the OOP Kingdom. Java loves structure, and object-oriented programming is its favorite way to organize a growing codebase. Think of classes as blueprints, objects as citizens, and methods as the actions they can perform.",
       mood: "excited",
     },
     {
       type: "visual-analogy",
-      title: "Classes & Objects = Blueprints & Houses",
-      analogy: "A Class is a blueprint, and an Object is the actual house built from that blueprint",
+      title: "Classes and Objects = Blueprints and Houses",
+      analogy:
+        "A class is a blueprint, and an object is the actual house built from that blueprint.",
       realWorld: "House Blueprint",
-      realWorldEmoji: "📐",
-      codeConcept: "Java Class & Object",
-      codeConceptEmoji: "☕",
+      realWorldEmoji: "\u{1F4D0}",
+      codeConcept: "Java Class and Object",
+      codeConceptEmoji: "\u{2615}",
       mappings: [
-        { real: "Blueprint (design on paper)", code: "Class (code definition)" },
-        { real: "Actual house (built from blueprint)", code: "Object (instance of class)" },
-        { real: "Features: 3 bedrooms, 2 baths", code: "Fields: name, age, score" },
-        { real: "Actions: open door, turn on lights", code: "Methods: getName(), calculate()" },
+        { real: "Blueprint on paper", code: "Class definition" },
+        { real: "Finished house", code: "Object instance" },
+        { real: "Rooms and doors", code: "Fields and methods" },
+        { real: "Many houses from one plan", code: "Many objects from one class" },
       ],
-      conclusion: "You write a class ONCE, then create as many objects as you want from it. Each object has its own data but shares the same structure and behavior!",
+      conclusion:
+        "You define the class once, then create as many objects as you need. Each object carries its own data but follows the same design.",
     },
     {
       type: "comic",
-      title: "The Four Pillars of OOP",
+      title: "The Four Pillars",
       panels: [
         {
-          illustration: "📦",
-          narration: "1. ENCAPSULATION — Hide the messy details",
+          illustration: "\u{1F4E6}",
+          narration: "Encapsulation",
           character: "pixel",
-          dialogue: "Like a TV remote: you press buttons (public methods) without knowing the electronics inside (private fields). Keep data safe!",
+          dialogue:
+            "Bundle data and behavior together, then hide delicate details behind public methods.",
           mood: "thinking",
         },
         {
-          illustration: "👨‍👦",
-          narration: "2. INHERITANCE — Children inherit from parents",
+          illustration: "\u{1F5DD}\u{FE0F}",
+          narration: "Abstraction",
           character: "pixel",
-          dialogue: "A Dog class inherits from Animal class. Dogs get all Animal abilities PLUS their own special ones like fetch()!",
-          mood: "excited",
-        },
-        {
-          illustration: "🎭",
-          narration: "3. POLYMORPHISM — Same action, different behaviors",
-          character: "pixel",
-          dialogue: "Every animal can speak(), but Dog says 'Woof!' and Cat says 'Meow!'. Same method name, different behavior!",
+          dialogue:
+            "Show what something can do without exposing every messy implementation detail.",
           mood: "happy",
         },
         {
-          illustration: "🧩",
-          narration: "4. ABSTRACTION — Focus on WHAT, not HOW",
+          illustration: "\u{1F333}",
+          narration: "Inheritance",
           character: "pixel",
-          dialogue: "You call car.start() without knowing if it's electric or gas. The abstract interface hides implementation details!",
+          dialogue:
+            "A child class can extend a parent and reuse behavior instead of rewriting it.",
+          mood: "excited",
+        },
+        {
+          illustration: "\u{1F3AD}",
+          narration: "Polymorphism",
+          character: "pixel",
+          dialogue:
+            "The same method name can lead to different behavior depending on the object behind it.",
           mood: "celebrating",
         },
       ],
     },
     {
       type: "code",
-      title: "Java Class — Your First Blueprint",
-      explanation: "Here's a complete Java class with fields (data), a constructor (initializer), and methods (behavior):",
-      code: `public class Player {
-    // Fields (private = encapsulated!)
-    private String name;
-    private int score;
-    private int level;
+      title: "One Example, Many OOP Ideas",
+      explanation:
+        "This example shows encapsulation with private fields, inheritance with extends, abstraction through an abstract class, and overriding for runtime polymorphism.",
+      code: `abstract class Animal {
+    protected String name;
 
-    // Constructor — creates a new Player
-    public Player(String name) {
+    Animal(String name) {
         this.name = name;
-        this.score = 0;
-        this.level = 1;
     }
 
-    // Methods — what a Player can DO
-    public void addScore(int points) {
-        this.score += points;
-        if (this.score >= this.level * 100) {
-            this.level++;
-            System.out.println(name + " leveled up to " + level + "!");
-        }
-    }
-
-    public String getName() { return this.name; }
-    public int getScore() { return this.score; }
+    public abstract void speak();
 }
 
-// Creating OBJECTS from the class:
-Player alice = new Player("Alice");
-Player bob = new Player("Bob");
-alice.addScore(150); // "Alice leveled up to 2!"`,
+class Dog extends Animal {
+    private String breed;
+
+    Dog(String name, String breed) {
+        super(name);
+        this.breed = breed;
+    }
+
+    @Override
+    public void speak() {
+        System.out.println(name + " says Woof!");
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+}
+
+Animal pet = new Dog("Bolt", "Corgi");
+pet.speak();`,
       language: "java",
-      highlightLines: [1, 8, 15, 28, 29],
+      highlightLines: [1, 7, 10, 13, 17, 26],
     },
     {
       type: "interactive-visual",
-      title: "OOP Inheritance Tree",
-      description: "Tap each class to see its properties and methods. Children inherit everything from their parents!",
+      title: "Inheritance Tree",
+      description:
+        "Tap each class to see how children inherit structure from parents and add their own powers.",
       visualType: "oop-kingdom",
       config: {
         classes: [
-          { name: "Animal", emoji: "🐾", properties: ["name", "sound"], methods: ["speak()", "eat()"] },
-          { name: "Dog", emoji: "🐕", parent: "Animal", properties: ["breed"], methods: ["fetch()", "wagTail()"] },
-          { name: "Cat", emoji: "🐈", parent: "Animal", properties: ["indoor"], methods: ["purr()", "scratch()"] },
+          {
+            name: "Animal",
+            emoji: "\u{1F43E}",
+            properties: ["name", "energy"],
+            methods: ["speak()", "eat()"],
+          },
+          {
+            name: "Dog",
+            emoji: "\u{1F415}",
+            parent: "Animal",
+            properties: ["breed"],
+            methods: ["fetch()", "speak()"],
+          },
+          {
+            name: "Cat",
+            emoji: "\u{1F408}",
+            parent: "Animal",
+            properties: ["indoor"],
+            methods: ["purr()", "speak()"],
+          },
         ],
       },
     },
     {
       type: "concept-breakdown",
-      title: "Inheritance in Java",
-      description: "Inheritance lets you create new classes based on existing ones — reusing code and building hierarchies:",
+      title: "Java OOP Toolkit",
+      description:
+        "These are the Java-specific tools that make the four OOP pillars real in code:",
       steps: [
         {
-          icon: "👨‍👧",
-          title: "extends — inherit from a parent",
-          explanation: "The child class gets ALL the public/protected fields and methods of the parent automatically.",
-          codeSnippet: "class Dog extends Animal {\n    private String breed;\n    \n    public void fetch() {\n        System.out.println(name + \" fetches the ball!\");\n    }\n}",
+          icon: "1",
+          title: "Access modifiers control visibility",
+          explanation:
+            "`private`, `public`, `protected`, and package-private decide who can access data and methods. This is a key part of encapsulation.",
+          codeSnippet: `class Player {
+    private int score;
+
+    public int getScore() {
+        return score;
+    }
+}`,
           language: "java",
         },
         {
-          icon: "🔄",
-          title: "@Override — change inherited behavior",
-          explanation: "Override a parent's method to give the child its own version. This is POLYMORPHISM in action!",
-          codeSnippet: "class Cat extends Animal {\n    @Override\n    public void speak() {\n        System.out.println(name + \" says Meow!\");\n    }\n}",
+          icon: "2",
+          title: "Abstract classes and interfaces model abstraction",
+          explanation:
+            "Use abstract classes when related classes share state or partial behavior. Use interfaces when you want to define a capability.",
+          codeSnippet: `abstract class Animal {
+    abstract void speak();
+}
+
+interface Flyable {
+    void fly();
+}`,
           language: "java",
         },
         {
-          icon: "🎯",
-          title: "super — call the parent's version",
-          explanation: "Use super to call the parent's constructor or methods from the child class.",
-          codeSnippet: "class Dog extends Animal {\n    public Dog(String name, String breed) {\n        super(name);  // Call Animal's constructor\n        this.breed = breed;\n    }\n}",
+          icon: "3",
+          title: "extends builds inheritance",
+          explanation:
+            "A subclass inherits useful behavior from a superclass and can add more of its own.",
+          codeSnippet: `class Dog extends Animal {
+    @Override
+    void speak() {
+        System.out.println("Woof");
+    }
+}`,
+          language: "java",
+        },
+        {
+          icon: "4",
+          title: "Overriding and overloading are different",
+          explanation:
+            "Overriding changes inherited behavior at runtime. Overloading uses the same method name with different parameters at compile time.",
+          codeSnippet: `void heal(int amount) { }
+void heal(int amount, String source) { }`,
           language: "java",
         },
       ],
     },
-    // ===== TEST =====
+    {
+      type: "puzzle",
+      instruction:
+        "Arrange this abstraction-and-overriding example in the correct order:",
+      codeLines: [
+        "abstract class Hero {",
+        "    public abstract void attack();",
+        "}",
+        "class Mage extends Hero {",
+        "    @Override",
+        "    public void attack() {",
+        '        System.out.println("Cast spell");',
+        "    }",
+        "}",
+      ],
+      correctOrder: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      language: "java",
+      xpBonus: 15,
+    },
+    {
+      type: "code",
+      title: "Constructors, super, and Reuse",
+      explanation:
+        "Inheritance becomes clearer when you see how child objects are constructed. `super(...)` hands setup work to the parent before the child adds its own details.",
+      code: `class Hero {
+    String name;
+
+    Hero(String name) {
+        this.name = name;
+    }
+}
+
+class Mage extends Hero {
+    Mage() {
+        super("Astra");
+    }
+}`,
+      language: "java",
+      highlightLines: [2, 4, 9, 10, 11],
+    },
     {
       type: "quiz",
-      question: "What is the difference between a Class and an Object?",
-      options: [
-        "They are the same thing",
-        "A class is a blueprint; an object is an instance created from it",
-        "An object is a blueprint; a class is an instance",
-        "Classes are for functions, objects are for variables",
-      ],
+      question:
+        "Which Java feature is most directly used to hide internal state behind methods?",
+      options: ["Inheritance", "Encapsulation", "Garbage collection", "Serialization"],
       correctIndex: 1,
-      explanation: "A class defines the structure (fields + methods). An object is a real instance created from that class using 'new'. You can have many objects from one class!",
+      explanation:
+        "Encapsulation keeps data and behavior together and often uses access modifiers plus getter/setter methods to protect internal state.",
       xpBonus: 15,
     },
     {
       type: "match",
-      instruction: "Match OOP concepts with their descriptions:",
+      instruction: "Match the OOP concept to the Java tool:",
       pairs: [
-        { left: "Encapsulation", right: "Hiding internal data, exposing methods" },
-        { left: "Inheritance", right: "Child class extends parent class" },
-        { left: "Polymorphism", right: "Same method name, different behavior" },
-        { left: "Abstraction", right: "Focus on what, not how" },
+        { left: "Abstraction", right: "Abstract classes and interfaces" },
+        { left: "Encapsulation", right: "Access modifiers" },
+        { left: "Inheritance", right: "extends" },
+        { left: "Runtime polymorphism", right: "@Override" },
       ],
       xpBonus: 20,
     },
     {
       type: "story",
       character: "pixel",
-      dialogue: "You've learned the pillars of OOP! 🏛️ Classes, objects, inheritance, and polymorphism — these concepts aren't just Java; they appear in C#, Python, TypeScript, and more. Now let's conquer MULTITHREADING!",
+      dialogue:
+        "You now understand the OOP pillars the Java way: hide details, define shared contracts, reuse behavior, and let objects decide how to respond. That is the architectural heart of the kingdom.",
       mood: "celebrating",
     },
   ],
@@ -181,220 +275,225 @@ export const javaMultithreading: Lesson = {
   id: "java-multithreading",
   trackId: "java-kingdom",
   title: "The Thread Army",
-  description: "Command multiple threads to do work simultaneously!",
+  description:
+    "Run multiple tasks at once with threads, synchronization, and concurrency basics.",
   xpReward: 180,
   difficulty: "intermediate",
-  estimatedMinutes: 14,
+  estimatedMinutes: 15,
   steps: [
     {
       type: "story",
       character: "pixel",
-      dialogue: "Commander! 🎖️ Imagine you have ONE worker building a house. Slow, right? Now imagine you have FIVE workers, each doing a different task AT THE SAME TIME — one lays bricks, one does wiring, one paints. THAT'S multithreading! Let's learn how Java makes this possible.",
+      dialogue:
+        "Imagine building a castle with one worker versus a whole crew. Threads are Java's way of letting several jobs move forward at once, but if those workers grab the same tools carelessly, chaos follows.",
       mood: "excited",
     },
     {
       type: "visual-analogy",
       title: "Threads = Kitchen Workers",
-      analogy: "Multithreading is like having multiple chefs in a kitchen — each working on a different dish simultaneously",
+      analogy:
+        "Multithreading is like having multiple chefs in a kitchen, each working on a different dish at the same time.",
       realWorld: "Restaurant Kitchen",
-      realWorldEmoji: "👨‍🍳",
+      realWorldEmoji: "\u{1F468}\u{200D}\u{1F373}",
       codeConcept: "Java Threads",
-      codeConceptEmoji: "🧵",
+      codeConceptEmoji: "\u{1F9F5}",
       mappings: [
-        { real: "The kitchen (shared space)", code: "Process (shared memory)" },
-        { real: "Each chef (works independently)", code: "Thread (unit of execution)" },
-        { real: "Chefs share the stove/oven", code: "Threads share heap memory" },
-        { real: "Only one chef can use the knife at a time", code: "synchronized — mutual exclusion" },
-        { real: "Head chef coordinates orders", code: "Main thread manages others" },
+        { real: "The kitchen", code: "Process with shared memory" },
+        { real: "Each chef", code: "Thread" },
+        { real: "Shared knife and stove", code: "Shared data and resources" },
+        { real: "Kitchen rules", code: "Synchronization" },
       ],
-      conclusion: "Threads let your program do multiple things at once. But just like chefs bumping into each other, threads can cause problems if they access shared data without coordination!",
+      conclusion:
+        "Threads let your program do more than one thing at a time, but shared resources require coordination or the kitchen turns into a disaster movie.",
     },
     {
       type: "comic",
-      title: "The Life of a Thread",
+      title: "A Thread's Life",
       panels: [
         {
-          illustration: "🐣",
-          narration: "NEW — Thread is created but not started",
+          illustration: "\u{1F423}",
+          narration: "NEW",
           character: "pixel",
-          dialogue: "Like hiring a new worker. They exist but haven't started working yet. Call .start() to begin!",
+          dialogue:
+            "A thread exists but has not started working yet. It is ready to be launched.",
           mood: "happy",
         },
         {
-          illustration: "🏃",
-          narration: "RUNNABLE — Thread is running (or ready to run)",
+          illustration: "\u{1F3C3}",
+          narration: "RUNNABLE",
           character: "pixel",
-          dialogue: "The worker is active! The CPU scheduler decides which thread actually runs at any moment.",
+          dialogue:
+            "The scheduler can now let this thread run. It is in the race.",
           mood: "excited",
         },
         {
-          illustration: "😴",
-          narration: "BLOCKED / WAITING — Thread is paused",
+          illustration: "\u{1F634}",
+          narration: "WAITING or BLOCKED",
           character: "pixel",
-          dialogue: "Waiting for a lock, or sleeping, or waiting for another thread. Like a worker waiting for the shared tool to be free.",
+          dialogue:
+            "Sometimes a thread must pause for a lock, a timer, or another thread to finish first.",
           mood: "thinking",
         },
         {
-          illustration: "💀",
-          narration: "TERMINATED — Thread is done",
+          illustration: "\u{1F3C1}",
+          narration: "TERMINATED",
           character: "pixel",
-          dialogue: "The run() method finished. The worker completed their task and went home. Can't restart a terminated thread!",
-          mood: "happy",
+          dialogue:
+            "The work is complete. This thread cannot be restarted once it is done.",
+          mood: "celebrating",
         },
       ],
     },
     {
       type: "code",
-      title: "Creating Threads in Java",
-      explanation: "Java provides two main ways to create threads. Both override a run() method that contains the work to be done:",
-      code: `// Way 1: Extend Thread class
-class DownloadThread extends Thread {
-    private String url;
+      title: "Creating Threads",
+      explanation:
+        "Java lets you create threads by extending `Thread` or by implementing `Runnable`, which is usually the cleaner choice.",
+      code: `class DownloadTask implements Runnable {
+    private final String fileName;
 
-    public DownloadThread(String url) {
-        this.url = url;
+    DownloadTask(String fileName) {
+        this.fileName = fileName;
     }
 
     @Override
     public void run() {
-        System.out.println("Downloading: " + url);
-        // ... download logic ...
-        System.out.println("Done: " + url);
+        System.out.println("Downloading " + fileName);
     }
 }
 
-// Way 2: Implement Runnable (preferred!)
-class DataProcessor implements Runnable {
-    @Override
-    public void run() {
-        System.out.println("Processing data...");
-    }
-}
+Thread first = new Thread(new DownloadTask("map.zip"));
+Thread second = new Thread(new DownloadTask("save.bin"));
 
-// Starting threads:
-Thread t1 = new DownloadThread("file1.zip");
-Thread t2 = new DownloadThread("file2.zip");
-Thread t3 = new Thread(new DataProcessor());
-
-t1.start(); // All three run SIMULTANEOUSLY!
-t2.start();
-t3.start();`,
+first.start();
+second.start();`,
       language: "java",
-      highlightLines: [2, 10, 18, 20, 29, 30],
+      highlightLines: [1, 4, 8, 13, 14, 16],
     },
     {
       type: "interactive-visual",
       title: "Thread Race Simulation",
-      description: "Watch multiple threads execute tasks in parallel. See how they overlap — this is the power of concurrency!",
+      description:
+        "Watch several threads make progress at the same time and notice how their work overlaps.",
       visualType: "thread-race",
       config: {
         threads: [
-          { name: "Download Thread", color: "#8B5CF6", tasks: ["Connect", "Download", "Save"] },
-          { name: "UI Thread", color: "#3B82F6", tasks: ["Render", "Update", "Animate", "Display"] },
-          { name: "Data Thread", color: "#10B981", tasks: ["Fetch DB", "Process", "Cache"] },
+          {
+            name: "Download Thread",
+            color: "#8B5CF6",
+            tasks: ["Connect", "Download", "Save"],
+          },
+          {
+            name: "UI Thread",
+            color: "#3B82F6",
+            tasks: ["Render", "Update", "Animate"],
+          },
+          {
+            name: "Data Thread",
+            color: "#10B981",
+            tasks: ["Fetch", "Process", "Cache"],
+          },
         ],
       },
     },
     {
       type: "concept-breakdown",
-      title: "The Dangers: Race Conditions & Synchronization",
-      description: "When multiple threads access shared data, things can go horribly wrong. Here's how to prevent it:",
+      title: "Concurrency Survival Guide",
+      description:
+        "These are the biggest multithreading ideas every Java developer should understand:",
       steps: [
         {
-          icon: "⚠️",
-          title: "Race Condition — the bug you can't see",
-          explanation: "Two threads modify the same variable at the same time. Result? Unpredictable, inconsistent data. Like two people editing the same document simultaneously without knowing.",
-          codeSnippet: "// DANGER! Two threads incrementing the same counter:\n// Thread A reads count = 5\n// Thread B reads count = 5\n// Thread A writes count = 6\n// Thread B writes count = 6  <-- Lost update!\n// Expected 7, got 6!",
+          icon: "1",
+          title: "Race conditions corrupt shared data",
+          explanation:
+            "If two threads change the same value without coordination, the final answer can be wrong even if both threads look correct in isolation.",
+          codeSnippet: `// Thread A reads count = 5
+// Thread B reads count = 5
+// Thread A writes 6
+// Thread B writes 6`,
           language: "java",
         },
         {
-          icon: "🔒",
-          title: "synchronized — the safety lock",
-          explanation: "The 'synchronized' keyword ensures only ONE thread can enter a code block at a time. Like a bathroom door lock — when it's occupied, others wait!",
-          codeSnippet: "public synchronized void addScore(int points) {\n    // Only ONE thread at a time can execute this\n    this.score += points;\n}",
+          icon: "2",
+          title: "synchronized is the safety lock",
+          explanation:
+            "The `synchronized` keyword lets only one thread enter a protected block or method at a time.",
+          codeSnippet: `public synchronized void addScore(int points) {
+    this.score += points;
+}`,
           language: "java",
         },
         {
-          icon: "🤝",
-          title: "Thread.join() — wait for completion",
-          explanation: "Sometimes the main thread needs to wait until worker threads finish before proceeding. join() blocks until the thread completes.",
-          codeSnippet: "Thread worker = new Thread(task);\nworker.start();     // Start the work\nworker.join();      // Wait until it finishes\nSystem.out.println(\"Worker is done!\");",
+          icon: "3",
+          title: "Deadlock means everyone waits forever",
+          explanation:
+            "A deadlock happens when two threads each hold one lock and wait for the other lock forever. Nothing moves until you redesign the locking strategy.",
+          codeSnippet: `// Thread A locks map, waits for cache
+// Thread B locks cache, waits for map`,
           language: "java",
         },
         {
-          icon: "😴",
-          title: "Thread.sleep() — intentional pause",
-          explanation: "Makes the current thread pause for a specified time. Useful for polling, rate limiting, or simulating delays.",
-          codeSnippet: "try {\n    Thread.sleep(1000); // Pause for 1 second\n} catch (InterruptedException e) {\n    Thread.currentThread().interrupt();\n}",
+          icon: "4",
+          title: "join and sleep control timing",
+          explanation:
+            "`join()` waits for another thread to finish. `sleep()` pauses the current thread for a while.",
+          codeSnippet: `worker.start();
+worker.join();
+Thread.sleep(500);`,
           language: "java",
         },
       ],
     },
     {
       type: "code",
-      title: "Thread-Safe Counter Example",
-      explanation: "Here's a complete example showing the problem and solution for shared data access:",
-      code: `class SafeCounter {
+      title: "Protect a Shared Counter",
+      explanation:
+        "This is the classic concurrency bug and its fix. Multiple threads can safely share the same object only when the critical update is protected.",
+      code: `class Counter {
     private int count = 0;
 
-    // synchronized = only one thread at a time!
     public synchronized void increment() {
         count++;
     }
 
-    public synchronized int getCount() {
+    public int getCount() {
         return count;
     }
-}
-
-// Usage with multiple threads:
-SafeCounter counter = new SafeCounter();
-
-// Create 100 threads, each incrementing 1000 times
-Thread[] threads = new Thread[100];
-for (int i = 0; i < 100; i++) {
-    threads[i] = new Thread(() -> {
-        for (int j = 0; j < 1000; j++) {
-            counter.increment();
-        }
-    });
-    threads[i].start();
-}
-
-// Wait for all to finish, then check:
-// counter.getCount() == 100,000 ✅ (always correct!)`,
+}`,
       language: "java",
-      highlightLines: [5, 9, 20],
+      highlightLines: [2, 4, 5, 8],
     },
-    // ===== TEST =====
     {
       type: "quiz",
-      question: "What is a 'race condition' in multithreading?",
+      question:
+        "What is the main danger when two threads modify shared data without synchronization?",
       options: [
-        "Threads competing to finish first (which is good)",
-        "Two threads modifying shared data without synchronization, causing unpredictable results",
-        "A thread running too fast for the CPU",
-        "When threads are created in the wrong order",
+        "Serialization",
+        "Race conditions",
+        "Autoboxing",
+        "Inheritance loops",
       ],
       correctIndex: 1,
-      explanation: "A race condition occurs when multiple threads access shared data simultaneously without proper synchronization, leading to inconsistent or corrupted data!",
+      explanation:
+        "Race conditions happen when multiple threads access shared state without proper coordination, causing unpredictable results.",
       xpBonus: 20,
     },
     {
       type: "match",
-      instruction: "Match multithreading concepts:",
+      instruction: "Match the thread concept to the job:",
       pairs: [
-        { left: "Thread.start()", right: "Begin executing the thread" },
-        { left: "synchronized", right: "Only one thread can enter at a time" },
-        { left: "Thread.join()", right: "Wait for a thread to finish" },
-        { left: "Race condition", right: "Bug from unsynchronized shared access" },
+        { left: "Runnable", right: "Defines the work a thread should do" },
+        { left: "synchronized", right: "Protects a critical section" },
+        { left: "join()", right: "Waits for another thread" },
+        { left: "Deadlock", right: "Threads waiting forever on each other" },
       ],
       xpBonus: 20,
     },
     {
       type: "story",
       character: "pixel",
-      dialogue: "You've mastered the Thread Army! 🎖️ Understanding concurrency is what separates intermediate developers from advanced ones. You now know thread creation, lifecycle, synchronization, and race conditions. The Java Kingdom salutes you! ☕👑",
+      dialogue:
+        "You now know how Java runs several jobs at once, why synchronization matters, and how deadlocks can freeze an entire system. That is real concurrency knowledge, not toy magic.",
       mood: "celebrating",
     },
   ],
@@ -404,140 +503,201 @@ export const javaCollections: Lesson = {
   id: "java-collections",
   trackId: "java-kingdom",
   title: "The Collections Treasury",
-  description: "Master ArrayList, HashMap, and the Collections framework!",
+  description:
+    "Choose the right List, Set, and Map tools for storing and searching data.",
   xpReward: 160,
   difficulty: "beginner",
-  estimatedMinutes: 10,
+  estimatedMinutes: 12,
   steps: [
     {
       type: "story",
       character: "pixel",
-      dialogue: "Welcome to the Collections Treasury! 🏦 Java's Collections Framework is like a warehouse of different container types. Need a list? An ordered set? A key-value map? Java has a specialized container for EVERY need!",
+      dialogue:
+        "Welcome to the Collections Treasury. Java gives you specialized containers for different jobs, and choosing the right one is the difference between elegant code and a chaotic junk drawer.",
       mood: "excited",
     },
     {
       type: "visual-analogy",
       title: "Collections = Storage Types",
-      analogy: "Java Collections are like different types of storage in your home",
-      realWorld: "Home Storage",
-      realWorldEmoji: "🏠",
+      analogy:
+        "Java collections are like different storage tools in a workshop. Each one is built for a different kind of access pattern.",
+      realWorld: "Workshop Storage",
+      realWorldEmoji: "\u{1F9F0}",
       codeConcept: "Java Collections",
-      codeConceptEmoji: "📚",
+      codeConceptEmoji: "\u{1F4DA}",
       mappings: [
-        { real: "Filing cabinet (ordered, numbered)", code: "ArrayList — indexed list" },
-        { real: "Dictionary (look up by word)", code: "HashMap — key-value pairs" },
-        { real: "Bag of unique marbles (no duplicates)", code: "HashSet — unique elements" },
-        { real: "Queue at the bank (first in, first out)", code: "Queue — FIFO order" },
+        { real: "Numbered shelf", code: "List" },
+        { real: "Unique stamp set", code: "Set" },
+        { real: "Lookup index", code: "Map" },
+        { real: "Labeled containers", code: "Generics like List<String>" },
       ],
-      conclusion: "Each collection type is optimized for specific operations. Choosing the right one can make your code 100x faster!",
+      conclusion:
+        "Collections are not interchangeable. Pick the one that matches how you add, search, and organize data.",
     },
     {
       type: "comic",
-      title: "The Big Three Collections",
+      title: "The Big Three",
       panels: [
         {
-          illustration: "📋",
-          narration: "ArrayList — your go-to ordered list",
+          illustration: "\u{1F4CB}",
+          narration: "ArrayList",
           character: "pixel",
-          dialogue: "Like a numbered todo list. Fast to read by index O(1), but slow to insert in the middle O(n).",
+          dialogue:
+            "Use a list when order matters and duplicates are fine. Great for playlists, tasks, and search results.",
           mood: "happy",
         },
         {
-          illustration: "🗺️",
-          narration: "HashMap — instant lookups by key",
+          illustration: "\u{1F3AF}",
+          narration: "HashSet",
           character: "pixel",
-          dialogue: "Like a contacts app: search by NAME, instantly get the phone number. Lookup is O(1) on average!",
-          mood: "excited",
+          dialogue:
+            "Use a set when uniqueness matters. Perfect for removing duplicates and fast membership checks.",
+          mood: "thinking",
         },
         {
-          illustration: "🎯",
-          narration: "HashSet — guaranteed uniqueness",
+          illustration: "\u{1F5FA}\u{FE0F}",
+          narration: "HashMap",
           character: "pixel",
-          dialogue: "Like a guest list: each name appears only ONCE. Perfect for removing duplicates!",
-          mood: "thinking",
+          dialogue:
+            "Use a map when you want fast lookups by key, like usernames to profiles or words to counts.",
+          mood: "excited",
         },
       ],
     },
     {
       type: "code",
-      title: "The Big Three in Action",
-      explanation: "Here's how to create and use the three most important Java collections:",
+      title: "The Treasury in Action",
+      explanation:
+        "This example creates a list, a set, and a map, each with a job that fits its strengths.",
       code: `import java.util.*;
 
-// ArrayList — ordered, allows duplicates
-List<String> names = new ArrayList<>();
-names.add("Alice");
-names.add("Bob");
-names.add("Alice"); // Allowed! ["Alice", "Bob", "Alice"]
-System.out.println(names.get(0)); // "Alice" — O(1)
+List<String> quests = new ArrayList<>();
+quests.add("Intro");
+quests.add("Boss");
 
-// HashMap — key-value pairs
+Set<String> visited = new HashSet<>();
+visited.add("cave");
+visited.add("cave");
+
 Map<String, Integer> scores = new HashMap<>();
-scores.put("Alice", 95);
-scores.put("Bob", 87);
-System.out.println(scores.get("Alice")); // 95 — O(1)
+scores.put("Ada", 95);
+scores.put("Mina", 88);
 
-// HashSet — unique elements only
-Set<String> uniqueNames = new HashSet<>();
-uniqueNames.add("Alice");
-uniqueNames.add("Bob");
-uniqueNames.add("Alice"); // Ignored! {"Alice", "Bob"}
-System.out.println(uniqueNames.size()); // 2`,
+System.out.println(quests.get(0));
+System.out.println(visited.size());
+System.out.println(scores.get("Ada"));`,
       language: "java",
-      highlightLines: [4, 11, 17],
+      highlightLines: [3, 6, 10, 13, 14, 15],
     },
     {
       type: "concept-breakdown",
-      title: "When to Use Which Collection?",
-      description: "Choosing the right collection type is a critical skill:",
+      title: "When to Use What",
+      description:
+        "These patterns help you choose the right collection quickly:",
       steps: [
         {
-          icon: "📋",
-          title: "ArrayList — when order matters",
-          explanation: "Use when you need ordered data with fast index access. Great for: todo lists, search results, history.",
-          codeSnippet: "List<Task> todoList = new ArrayList<>();\ntodoList.add(new Task(\"Buy milk\"));\nTask first = todoList.get(0); // O(1) fast!",
+          icon: "1",
+          title: "Use List when order matters",
+          explanation:
+            "Lists keep insertion order and allow indexed access. They are ideal for sequences of items.",
+          codeSnippet: `List<String> names = new ArrayList<>();
+names.add("Ada");`,
           language: "java",
         },
         {
-          icon: "🗺️",
-          title: "HashMap — when you need fast lookups",
-          explanation: "Use when you have key-value data and need instant access by key. Great for: configs, caches, counting.",
-          codeSnippet: "Map<String, User> userCache = new HashMap<>();\nuserCache.put(\"alice123\", aliceObj);\nUser u = userCache.get(\"alice123\"); // O(1)!",
+          icon: "2",
+          title: "Use Set when uniqueness matters",
+          explanation:
+            "Sets ignore duplicates and make membership checks convenient.",
+          codeSnippet: `Set<String> tags = new HashSet<>();
+tags.add("java");`,
           language: "java",
         },
         {
-          icon: "🎯",
-          title: "HashSet — when uniqueness matters",
-          explanation: "Use when you need to track unique values or check membership quickly. Great for: deduplication, visited nodes.",
-          codeSnippet: "Set<String> visited = new HashSet<>();\nvisited.add(\"page1\");\nif (visited.contains(\"page1\")) // O(1) check!",
+          icon: "3",
+          title: "Use Map for key-value lookups",
+          explanation:
+            "Maps are built for finding a value by its key instead of by position.",
+          codeSnippet: `Map<String, Integer> scores = new HashMap<>();
+scores.put("Ada", 95);`,
+          language: "java",
+        },
+        {
+          icon: "4",
+          title: "Use generics with collections",
+          explanation:
+            "Collections are safest when you give them a type like `List<String>` instead of leaving them raw.",
+          codeSnippet: `List<String> heroes = new ArrayList<>();`,
           language: "java",
         },
       ],
     },
-    // ===== TEST =====
+    {
+      type: "concept-breakdown",
+      title: "Collection Families Beyond the Big Three",
+      description:
+        "ArrayList, HashSet, and HashMap are only the starting point. These nearby variants matter when order or sorting enters the picture:",
+      steps: [
+        {
+          icon: "1",
+          title: "ArrayList is the usual default List",
+          explanation:
+            "Use ArrayList when you want fast indexed reads and append-heavy behavior. It is the list most beginners should reach for first.",
+          codeSnippet: `List<String> quests = new ArrayList<>();`,
+          language: "java",
+        },
+        {
+          icon: "2",
+          title: "LinkedHashSet remembers insertion order",
+          explanation:
+            "A normal HashSet keeps uniqueness but not display order. LinkedHashSet keeps both uniqueness and the order items were added.",
+          codeSnippet: `Set<String> tags = new LinkedHashSet<>();`,
+          language: "java",
+        },
+        {
+          icon: "3",
+          title: "TreeSet and TreeMap keep data sorted",
+          explanation:
+            "When you need automatic sorting, the tree-based collections keep items ordered as they are inserted.",
+          codeSnippet: `Set<Integer> scores = new TreeSet<>();`,
+          language: "java",
+        },
+        {
+          icon: "4",
+          title: "HashMap stores by key, not by position",
+          explanation:
+            "With maps, you ask for a value by key instead of by index. That is why they are great for counts, settings, and profile lookups.",
+          codeSnippet: `Map<String, Integer> counts = new HashMap<>();`,
+          language: "java",
+        },
+      ],
+    },
     {
       type: "quiz",
-      question: "You need to count how many times each word appears in a text. Which collection should you use?",
-      options: ["ArrayList", "HashSet", "HashMap", "LinkedList"],
+      question:
+        "Which collection is best when you need to count how many times each word appears?",
+      options: ["ArrayList", "HashSet", "HashMap", "StringBuilder"],
       correctIndex: 2,
-      explanation: "HashMap<String, Integer> is perfect! The word is the key, and the count is the value. Lookup and update are both O(1)!",
+      explanation:
+        "A HashMap is ideal because the word becomes the key and the count becomes the value.",
       xpBonus: 20,
     },
     {
       type: "match",
-      instruction: "Match the use case with the best collection:",
+      instruction: "Match the use case to the best collection:",
       pairs: [
-        { left: "Remove duplicates from data", right: "HashSet" },
-        { left: "Store user profiles by username", right: "HashMap" },
-        { left: "Maintain ordered shopping list", right: "ArrayList" },
-        { left: "Check if item was already processed", right: "HashSet" },
+        { left: "Ordered shopping list", right: "ArrayList" },
+        { left: "Remove duplicates", right: "HashSet" },
+        { left: "Score by player name", right: "HashMap" },
+        { left: "Track visited pages", right: "HashSet" },
       ],
       xpBonus: 15,
     },
     {
       type: "story",
       character: "pixel",
-      dialogue: "You've raided the Collections Treasury! 🏆 ArrayList, HashMap, HashSet — these are the tools you'll use in literally EVERY Java project. The Java Kingdom crowns you a true Java Knight! ☕⚔️",
+      dialogue:
+        "You have raided the treasury successfully. Lists, sets, and maps will appear in almost every real Java codebase you touch.",
       mood: "celebrating",
     },
   ],

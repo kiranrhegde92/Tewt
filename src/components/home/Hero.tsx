@@ -3,18 +3,38 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
+import { tracks } from "@/data/tracks";
+import { allLessons } from "@/data/lessons";
+import { characters } from "@/data/characters";
 
-const floatingEmojis = ["💻", "🚀", "🧩", "⚡", "🎯", "🐍", "⚛️", "🎨"];
+const floatingEmojis = ["💻", "🚀", "🧩", "⚡", "🎯", "🐍", "☕", "⚛️", "🎨"];
+const practiceStepTypes = new Set([
+  "quiz",
+  "puzzle",
+  "match",
+  "typeracer",
+  "visualizer",
+]);
 
 export default function Hero() {
+  const trackCount = tracks.length;
+  const lessonCount = Object.keys(allLessons).length;
+  const characterCount = Object.keys(characters).length;
+  const miniGameCount = new Set(
+    Object.values(allLessons).flatMap((lesson) =>
+      lesson.steps
+        .map((step) => step.type)
+        .filter((type) => practiceStepTypes.has(type))
+    )
+  ).size;
+
   return (
     <section className="relative overflow-hidden px-4 py-16 sm:py-24">
-      {/* Floating emojis background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {floatingEmojis.map((emoji, i) => (
           <motion.span
             key={i}
-            className="absolute text-2xl sm:text-4xl opacity-10"
+            className="absolute text-2xl opacity-10 sm:text-4xl"
             style={{
               left: `${10 + (i * 12) % 80}%`,
               top: `${5 + (i * 17) % 70}%`,
@@ -37,7 +57,6 @@ export default function Hero() {
       </div>
 
       <div className="relative mx-auto max-w-4xl text-center">
-        {/* Mascot */}
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
@@ -47,7 +66,6 @@ export default function Hero() {
           🎮
         </motion.div>
 
-        {/* Title */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -58,7 +76,6 @@ export default function Hero() {
           <span className="gradient-text">Fun Way</span>
         </motion.h1>
 
-        {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -72,7 +89,6 @@ export default function Hero() {
           No boring textbooks. Just pure fun.
         </motion.p>
 
-        {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -91,7 +107,6 @@ export default function Hero() {
           </Link>
         </motion.div>
 
-        {/* Stats */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -99,10 +114,10 @@ export default function Hero() {
           className="mt-12 flex flex-wrap items-center justify-center gap-8 text-center"
         >
           {[
-            { label: "Learning Tracks", value: "6", icon: "📚" },
-            { label: "Interactive Lessons", value: "18", icon: "🎯" },
-            { label: "Mini-Games", value: "6 Types", icon: "🎮" },
-            { label: "Fun Characters", value: "6", icon: "🧙‍♂️" },
+            { label: "Learning Tracks", value: `${trackCount}`, icon: "📚" },
+            { label: "Interactive Lessons", value: `${lessonCount}`, icon: "🎯" },
+            { label: "Mini-Games", value: `${miniGameCount} Types`, icon: "🎮" },
+            { label: "Fun Characters", value: `${characterCount}`, icon: "🧙‍♂️" },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
