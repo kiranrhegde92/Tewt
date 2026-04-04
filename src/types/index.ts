@@ -2,7 +2,7 @@
 // DevPlay - Type Definitions
 // ============================================
 
-export type TrackCategory = "language" | "algorithms" | "techstack" | "devops" | "ui";
+export type TrackCategory = "language" | "algorithms" | "techstack" | "devops" | "ui" | "tools";
 export type Difficulty = "beginner" | "intermediate" | "advanced";
 export type CharacterMood = "happy" | "thinking" | "excited" | "confused" | "celebrating";
 
@@ -36,8 +36,17 @@ export type LessonStep =
   | PuzzleStep
   | MatchStep
   | TypeRacerStep
-  | VisualizerStep;
+  | VisualizerStep
+  | ComicStep
+  | VisualAnalogyStep
+  | ConceptBreakdownStep
+  | InteractiveVisualStep;
 
+// ==========================================
+// LEARNING STEPS (Teach First!)
+// ==========================================
+
+/** Story dialogue with a character — narrative-driven teaching */
 export interface StoryStep {
   type: "story";
   character: string;
@@ -47,6 +56,69 @@ export interface StoryStep {
   language?: string;
 }
 
+/** Comic strip panels — visual storytelling for concepts */
+export interface ComicStep {
+  type: "comic";
+  title: string;
+  panels: ComicPanel[];
+}
+
+export interface ComicPanel {
+  character?: string;
+  mood?: CharacterMood;
+  dialogue?: string;
+  narration?: string;
+  illustration: string; // emoji-based scene description
+  background?: string;  // color/gradient
+}
+
+/** Visual analogy — teach concepts through real-world metaphors */
+export interface VisualAnalogyStep {
+  type: "visual-analogy";
+  title: string;
+  analogy: string;        // "X is like Y"
+  realWorld: string;       // the real-world thing
+  realWorldEmoji: string;
+  codeConcept: string;     // the code concept
+  codeConceptEmoji: string;
+  mappings: { real: string; code: string }[]; // point-by-point comparisons
+  conclusion: string;
+}
+
+/** Concept breakdown — step-by-step animated explanation */
+export interface ConceptBreakdownStep {
+  type: "concept-breakdown";
+  title: string;
+  description: string;
+  steps: {
+    icon: string;
+    title: string;
+    explanation: string;
+    codeSnippet?: string;
+    language?: string;
+  }[];
+}
+
+/** Interactive visual — animated diagram the user can interact with */
+export interface InteractiveVisualStep {
+  type: "interactive-visual";
+  title: string;
+  description: string;
+  visualType:
+    | "thread-race"
+    | "memory-boxes"
+    | "call-stack"
+    | "event-loop"
+    | "oop-kingdom"
+    | "git-tree"
+    | "network-request"
+    | "css-box-model"
+    | "dom-tree"
+    | "state-flow";
+  config: Record<string, unknown>;
+}
+
+/** Code with explanation — syntax highlighted code block */
 export interface CodeStep {
   type: "code";
   title: string;
@@ -55,6 +127,10 @@ export interface CodeStep {
   language: string;
   highlightLines?: number[];
 }
+
+// ==========================================
+// TESTING STEPS (After Learning!)
+// ==========================================
 
 export interface QuizStep {
   type: "quiz";
@@ -97,6 +173,10 @@ export interface VisualizerStep {
   visualizerType: "sorting" | "tree" | "stack" | "queue";
   data: number[];
 }
+
+// ==========================================
+// Non-step types
+// ==========================================
 
 export interface Character {
   id: string;
