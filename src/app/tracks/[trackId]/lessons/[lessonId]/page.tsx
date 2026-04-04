@@ -1,11 +1,10 @@
 "use client";
 
-import { use, useState, useCallback } from "react";
+import { use, useCallback, useEffect, useState } from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
-import { allLessons } from "@/data/lessons/index";
-import { tracks } from "@/data/tracks";
-import { useProgressStore } from "@/stores/useProgressStore";
+import { useSearchParams } from "next/navigation";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import StoryPanel from "@/components/lesson/StoryPanel";
 import CodeBlock from "@/components/lesson/CodeBlock";
 import ComicPanelComponent from "@/components/lesson/ComicPanel";
@@ -20,41 +19,63 @@ import MatchingGame from "@/components/games/MatchingGame";
 import SortingVisualizer from "@/components/games/SortingVisualizer";
 import TypeRacer from "@/components/games/TypeRacer";
 import Button from "@/components/ui/Button";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { allLessons } from "@/data/lessons/index";
+import { tracks } from "@/data/tracks";
+import { useProgressStore } from "@/stores/useProgressStore";
 import {
-  StoryStep,
   CodeStep,
-  QuizStep,
-  PuzzleStep,
-  MatchStep,
-  TypeRacerStep,
-  VisualizerStep,
   ComicStep,
-  VisualAnalogyStep,
   ConceptBreakdownStep,
   InteractiveVisualStep,
+  MatchStep,
+  PuzzleStep,
+  QuizStep,
+  StoryStep,
+  TypeRacerStep,
+  VisualAnalogyStep,
+  VisualizerStep,
 } from "@/types";
+
+const learningStepTypes = [
+  "story",
+  "code",
+  "comic",
+  "visual-analogy",
+  "concept-breakdown",
+  "interactive-visual",
+];
 
 export default function LessonPage({
   params,
 }: {
   params: Promise<{ trackId: string; lessonId: string }>;
 }) {
+  const searchParams = useSearchParams();
   const { trackId, lessonId } = use(params);
   const lesson = allLessons[lessonId];
-  const track = tracks.find((t) => t.id === trackId);
-  const { addXP, completeLesson, updateStreak } =
-    useProgressStore();
+  const track = tracks.find((candidate) => candidate.id === trackId);
+  const { addXP, completeLesson, updateStreak } = useProgressStore();
 
   const [currentStep, setCurrentStep] = useState(0);
   const [earnedXP, setEarnedXP] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [canProceed, setCanProceed] = useState(true);
 
+  const requestedStep = Number(searchParams.get("step") ?? 0);
+  const safeRequestedStep =
+    Number.isInteger(requestedStep) && requestedStep >= 0
+      ? Math.min(requestedStep, Math.max((lesson?.steps.length ?? 1) - 1, 0))
+      : 0;
+
+  useEffect(() => {
+    setCurrentStep(safeRequestedStep);
+    setCanProceed(true);
+  }, [lessonId, safeRequestedStep]);
+
   if (!lesson || !track) {
     return (
       <div className="flex min-h-[50vh] flex-col items-center justify-center">
-        <span className="mb-4 text-6xl">🤔</span>
+        <span className="mb-4 text-6xl">{"\u{1F914}"}</span>
         <h1 className="text-2xl font-bold">Lesson Not Found</h1>
         <Link href="/tracks" className="mt-4 text-primary hover:underline">
           Back to Tracks
@@ -69,22 +90,20 @@ export default function LessonPage({
     if (currentStep < lesson.steps.length - 1) {
       setCurrentStep(currentStep + 1);
       setCanProceed(true);
-    } else {
-      const totalXP = lesson.xpReward + earnedXP;
-      addXP(totalXP);
-      completeLesson(lessonId);
-      updateStreak();
-      setIsComplete(true);
+      return;
     }
+
+    const totalXP = lesson.xpReward + earnedXP;
+    addXP(totalXP);
+    completeLesson(lessonId);
+    updateStreak();
+    setIsComplete(true);
   };
 
-  const handleCorrect = useCallback(
-    (xp: number) => {
-      setEarnedXP((prev) => prev + xp);
-      setCanProceed(true);
-    },
-    []
-  );
+  const handleCorrect = useCallback((xp: number) => {
+    setEarnedXP((previousXP) => previousXP + xp);
+    setCanProceed(true);
+  }, []);
 
   const handleWrong = useCallback(() => {
     setCanProceed(true);
@@ -111,7 +130,6 @@ export default function LessonPage({
 
   const renderStep = () => {
     switch (step.type) {
-      // ---- LEARNING STEPS ----
       case "story":
         return <StoryPanel step={step as StoryStep} />;
       case "code":
@@ -121,36 +139,70 @@ export default function LessonPage({
       case "visual-analogy":
         return <VisualAnalogy key={currentStep} step={step as VisualAnalogyStep} />;
       case "concept-breakdown":
-        return <ConceptBreakdown key={currentStep} step={step as ConceptBreakdownStep} />;
+        return (
+          <ConceptBreakdown
+            key={currentStep}
+            step={step as ConceptBreakdownStep}
+          />
+        );
       case "interactive-visual":
-        return <InteractiveVisual key={currentStep} step={step as InteractiveVisualStep} />;
-
-      // ---- TESTING STEPS ----
+        return (
+          <InteractiveVisual
+            key={currentStep}
+            step={step as InteractiveVisualStep}
+          />
+        );
       case "quiz":
-        return <Quiz key={currentStep} step={step as QuizStep} onCorrect={handleCorrect} onWrong={handleWrong} />;
+        return (
+          <Quiz
+            key={currentStep}
+            step={step as QuizStep}
+            onCorrect={handleCorrect}
+            onWrong={handleWrong}
+          />
+        );
       case "puzzle":
-        return <CodePuzzle key={currentStep} step={step as PuzzleStep} onCorrect={handleCorrect} onWrong={handleWrong} />;
+        return (
+          <CodePuzzle
+            key={currentStep}
+            step={step as PuzzleStep}
+            onCorrect={handleCorrect}
+            onWrong={handleWrong}
+          />
+        );
       case "match":
-        return <MatchingGame key={currentStep} step={step as MatchStep} onCorrect={handleCorrect} onWrong={handleWrong} />;
+        return (
+          <MatchingGame
+            key={currentStep}
+            step={step as MatchStep}
+            onCorrect={handleCorrect}
+            onWrong={handleWrong}
+          />
+        );
       case "visualizer":
-        return <SortingVisualizer key={currentStep} step={step as VisualizerStep} />;
+        return (
+          <SortingVisualizer key={currentStep} step={step as VisualizerStep} />
+        );
       case "typeracer":
-        return <TypeRacer key={currentStep} step={step as TypeRacerStep} onCorrect={handleCorrect} onWrong={handleWrong} />;
-
+        return (
+          <TypeRacer
+            key={currentStep}
+            step={step as TypeRacerStep}
+            onCorrect={handleCorrect}
+            onWrong={handleWrong}
+          />
+        );
       default:
         return <p>Unknown step type</p>;
     }
   };
 
-  // Determine step category label
-  const stepCategory =
-    ["story", "code", "comic", "visual-analogy", "concept-breakdown", "interactive-visual"].includes(step.type)
-      ? "📖 Learning"
-      : "🎮 Practice";
+  const stepCategory = learningStepTypes.includes(step.type)
+    ? "\u{1F4D6} Learning"
+    : "\u{1F3AE} Practice";
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
-      {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <Link
           href={`/tracks/${trackId}`}
@@ -164,7 +216,6 @@ export default function LessonPage({
         />
       </div>
 
-      {/* Lesson title + step category */}
       <div className="mb-6 flex items-center justify-between">
         <motion.h1
           key={lesson.id}
@@ -179,7 +230,6 @@ export default function LessonPage({
         </span>
       </div>
 
-      {/* Step content */}
       <motion.div
         key={currentStep}
         initial={{ opacity: 0, x: 20 }}
@@ -190,7 +240,6 @@ export default function LessonPage({
         {renderStep()}
       </motion.div>
 
-      {/* Navigation */}
       <div className="flex items-center justify-between border-t border-border pt-4">
         <Button
           variant="ghost"
@@ -204,12 +253,9 @@ export default function LessonPage({
           +{earnedXP} bonus XP earned
         </div>
 
-        <Button
-          onClick={handleNext}
-          disabled={!canProceed}
-        >
+        <Button onClick={handleNext} disabled={!canProceed}>
           {currentStep === lesson.steps.length - 1 ? (
-            "Complete Lesson 🎉"
+            `Complete Lesson \u{1F389}`
           ) : (
             <>
               Continue <ArrowRight size={16} className="ml-1" />

@@ -14,6 +14,7 @@ const categoryLabels: Record<string, string> = {
   techstack: "Tech Stacks & Frameworks",
   devops: "DevOps & Deployment",
   ui: "UI/UX & Design",
+  tools: "Developer Tools",
 };
 
 export default function TracksPage() {
@@ -21,9 +22,13 @@ export default function TracksPage() {
 
   const grouped = tracks.reduce(
     (acc, track) => {
-      const cat = track.category;
-      if (!acc[cat]) acc[cat] = [];
-      acc[cat].push(track);
+      const category = track.category;
+
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+
+      acc[category].push(track);
       return acc;
     },
     {} as Record<string, typeof tracks>
@@ -41,7 +46,7 @@ export default function TracksPage() {
           Learning Tracks
         </h1>
         <p className="text-lg text-muted-foreground">
-          Pick a track and start your coding adventure!
+          Browse the full map or use the search bar above to jump to any topic.
         </p>
       </motion.div>
 
@@ -76,17 +81,17 @@ export default function TracksPage() {
                         <span className="text-4xl">{track.icon}</span>
                         {isComplete && (
                           <span className="rounded-full bg-accent/10 px-2 py-0.5 text-xs font-semibold text-accent">
-                            Completed ✓
+                            Completed
                           </span>
                         )}
                       </div>
                       <h3 className="mb-1 text-lg font-bold">{track.title}</h3>
-                      <p className="mb-3 text-sm text-muted-foreground leading-relaxed">
+                      <p className="mb-3 text-sm leading-relaxed text-muted-foreground">
                         {track.description}
                       </p>
                       <div className="mb-2 flex items-center gap-2 text-xs text-muted-foreground">
                         <span>{track.lessonIds.length} lessons</span>
-                        <span>•</span>
+                        <span>-</span>
                         <span>{track.totalXP} XP</span>
                       </div>
                       <ProgressBar
@@ -95,7 +100,7 @@ export default function TracksPage() {
                         size="sm"
                       />
                       <div className="mt-3 flex items-center justify-end text-sm font-semibold text-primary">
-                        {completed > 0 ? "Continue" : "Start"}{" "}
+                        {completed > 0 ? "Continue" : "Start"}
                         <ArrowRight size={14} className="ml-1" />
                       </div>
                     </Card>

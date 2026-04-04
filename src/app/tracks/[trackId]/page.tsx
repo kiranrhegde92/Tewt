@@ -15,7 +15,6 @@ import {
   ArrowRight,
   CheckCircle2,
   Clock,
-  Lock,
   Zap,
 } from "lucide-react";
 
@@ -31,7 +30,7 @@ export default function TrackDetailPage({
   if (!track) {
     return (
       <div className="flex min-h-[50vh] flex-col items-center justify-center">
-        <span className="mb-4 text-6xl">🤔</span>
+        <span className="mb-4 text-6xl">{"\u{1F914}"}</span>
         <h1 className="text-2xl font-bold">Track Not Found</h1>
         <Link href="/tracks" className="mt-4 text-primary hover:underline">
           Back to Tracks
@@ -40,9 +39,7 @@ export default function TrackDetailPage({
     );
   }
 
-  const lessons = track.lessonIds
-    .map((id) => allLessons[id])
-    .filter(Boolean);
+  const lessons = track.lessonIds.map((id) => allLessons[id]).filter(Boolean);
 
   const completedCount = track.lessonIds.filter((id) =>
     completedLessons.includes(id)
@@ -59,7 +56,6 @@ export default function TrackDetailPage({
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
-      {/* Back button */}
       <Link
         href="/tracks"
         className="mb-6 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
@@ -67,13 +63,12 @@ export default function TrackDetailPage({
         <ArrowLeft size={16} /> All Tracks
       </Link>
 
-      {/* Track header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="mb-8"
       >
-        <div className="flex items-center gap-4 mb-4">
+        <div className="mb-4 flex items-center gap-4">
           <motion.span
             className="text-5xl"
             animate={{ rotate: [0, 10, -10, 0] }}
@@ -87,18 +82,16 @@ export default function TrackDetailPage({
           </div>
         </div>
 
-        {/* Guide character */}
         <div className="flex items-center gap-3 rounded-2xl bg-muted/50 p-4">
           <span className="text-3xl">{guide.avatar}</span>
           <div>
             <p className="text-sm font-semibold">{guide.name}</p>
-            <p className="text-sm text-muted-foreground italic">
+            <p className="text-sm italic text-muted-foreground">
               &quot;{guide.catchphrase}&quot;
             </p>
           </div>
         </div>
 
-        {/* Progress */}
         <div className="mt-4">
           <ProgressBar
             value={completedCount}
@@ -109,17 +102,12 @@ export default function TrackDetailPage({
         </div>
       </motion.div>
 
-      {/* Lesson list as a path */}
       <div className="relative">
-        {/* Connecting line */}
-        <div className="absolute left-7 top-0 bottom-0 w-0.5 bg-border" />
+        <div className="absolute bottom-0 left-7 top-0 w-0.5 bg-border" />
 
         <div className="space-y-4">
           {lessons.map((lesson, i) => {
             const isCompleted = completedLessons.includes(lesson.id);
-            const prevCompleted =
-              i === 0 || completedLessons.includes(lessons[i - 1]?.id);
-            const isLocked = !prevCompleted && !isCompleted;
 
             return (
               <motion.div
@@ -129,79 +117,58 @@ export default function TrackDetailPage({
                 transition={{ delay: i * 0.1 }}
               >
                 <div className="flex items-start gap-4">
-                  {/* Node */}
                   <div className="relative z-10 flex-shrink-0">
                     <motion.div
                       className={`flex h-14 w-14 items-center justify-center rounded-2xl border-2 text-lg font-bold ${
                         isCompleted
                           ? "border-accent bg-accent/10 text-accent"
-                          : isLocked
-                          ? "border-border bg-muted text-muted-foreground"
                           : "border-primary bg-primary/10 text-primary animate-pulse-glow"
                       }`}
-                      whileHover={!isLocked ? { scale: 1.1 } : undefined}
+                      whileHover={{ scale: 1.1 }}
                     >
-                      {isCompleted ? (
-                        <CheckCircle2 size={24} />
-                      ) : isLocked ? (
-                        <Lock size={20} />
-                      ) : (
-                        i + 1
-                      )}
+                      {isCompleted ? <CheckCircle2 size={24} /> : i + 1}
                     </motion.div>
                   </div>
 
-                  {/* Lesson card */}
-                  {isLocked ? (
-                    <Card hover={false} className="flex-1 opacity-50">
-                      <h3 className="font-bold text-muted-foreground">
-                        {lesson.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        Complete previous lesson to unlock
-                      </p>
-                    </Card>
-                  ) : (
-                    <Link
-                      href={`/tracks/${trackId}/lessons/${lesson.id}`}
-                      className="flex-1"
-                    >
-                      <Card className="flex-1">
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <h3 className="mb-1 font-bold">{lesson.title}</h3>
-                            <p className="text-sm text-muted-foreground">
-                              {lesson.description}
-                            </p>
-                          </div>
-                          {isCompleted && (
-                            <span className="text-accent text-sm font-semibold">
-                              ✓ Done
-                            </span>
-                          )}
+                  <Link
+                    href={`/tracks/${trackId}/lessons/${lesson.id}`}
+                    className="flex-1"
+                  >
+                    <Card className="flex-1">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <h3 className="mb-1 font-bold">{lesson.title}</h3>
+                          <p className="text-sm text-muted-foreground">
+                            {lesson.description}
+                          </p>
                         </div>
-                        <div className="mt-3 flex items-center gap-4 text-xs text-muted-foreground">
-                          <span className="flex items-center gap-1">
-                            <Clock size={12} /> {lesson.estimatedMinutes} min
+                        {isCompleted && (
+                          <span className="text-sm font-semibold text-accent">
+                            Done
                           </span>
-                          <span className="flex items-center gap-1">
-                            <Zap size={12} className="text-warning" /> +
-                            {lesson.xpReward} XP
-                          </span>
-                          <span className="rounded-full bg-muted px-2 py-0.5">
-                            {lesson.difficulty}
-                          </span>
-                        </div>
-                        {!isCompleted && (
-                          <div className="mt-3 flex justify-end">
-                            <Button variant="ghost" size="sm">
-                              Start Lesson <ArrowRight size={14} className="ml-1" />
-                            </Button>
-                          </div>
                         )}
-                      </Card>
-                    </Link>
-                  )}
+                      </div>
+                      <div className="mt-3 flex items-center gap-4 text-xs text-muted-foreground">
+                        <span className="flex items-center gap-1">
+                          <Clock size={12} /> {lesson.estimatedMinutes} min
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Zap size={12} className="text-warning" /> +
+                          {lesson.xpReward} XP
+                        </span>
+                        <span className="rounded-full bg-muted px-2 py-0.5">
+                          {lesson.difficulty}
+                        </span>
+                      </div>
+                      {!isCompleted && (
+                        <div className="mt-3 flex justify-end">
+                          <Button variant="ghost" size="sm">
+                            Start Lesson <ArrowRight size={14} className="ml-1" />
+                          </Button>
+                        </div>
+                      )}
+                    </Card>
+                  </Link>
                 </div>
               </motion.div>
             );

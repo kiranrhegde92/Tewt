@@ -27,22 +27,21 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 h-[var(--nav-height)] border-b border-border bg-card/80 backdrop-blur-md"
     >
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 sm:px-6">
-        {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <motion.span
             className="text-2xl"
             animate={{ rotate: [0, 10, -10, 0] }}
             transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
           >
-            🎮
+            {"\u{1F3AE}"}
           </motion.span>
           <span className="text-xl font-bold gradient-text">DevPlay</span>
         </Link>
 
-        {/* Nav Links - Desktop */}
         <div className="hidden items-center gap-1 sm:flex">
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
+
             return (
               <Link
                 key={link.href}
@@ -68,22 +67,18 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Right side - Stats & Theme */}
         <div className="flex items-center gap-3">
-          {/* XP Badge */}
           <div className="hidden items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1.5 text-sm font-semibold text-primary sm:flex">
             <Trophy size={14} />
             <span>{totalXP} XP</span>
           </div>
 
-          {/* Streak */}
           {streak > 0 && (
             <div className="hidden items-center gap-1 rounded-full bg-warning/10 px-3 py-1.5 text-sm font-semibold text-warning sm:flex">
-              🔥 {streak}
+              {"\u{1F525}"} {streak}
             </div>
           )}
 
-          {/* Level */}
           <div className="hidden items-center rounded-full bg-accent/10 px-3 py-1.5 text-sm font-semibold text-accent sm:flex">
             Lv.{level}
           </div>
@@ -92,19 +87,17 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Bottom Nav */}
       <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around border-t border-border bg-card/90 px-2 py-2 backdrop-blur-md sm:hidden">
         {navLinks.map((link) => {
           const isActive = pathname === link.href;
+
           return (
             <Link
               key={link.href}
               href={link.href}
               className={cn(
                 "flex flex-col items-center gap-0.5 rounded-xl px-3 py-1.5 text-xs font-medium transition-colors",
-                isActive
-                  ? "text-primary"
-                  : "text-muted-foreground"
+                isActive ? "text-primary" : "text-muted-foreground"
               )}
             >
               <link.icon size={20} />

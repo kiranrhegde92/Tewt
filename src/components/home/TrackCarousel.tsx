@@ -25,7 +25,7 @@ export default function TrackCarousel() {
             Choose Your <span className="gradient-text">Adventure</span>
           </h2>
           <p className="text-muted-foreground">
-            Six tracks. Endless fun. Pick your path and start learning!
+            {tracks.length} tracks. Endless fun. Pick your path and start learning!
           </p>
         </motion.div>
 
