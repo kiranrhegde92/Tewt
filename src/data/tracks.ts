@@ -1,30 +1,37 @@
 import { Track } from "@/types";
-import { roadmapTracks } from "@/data/roadmap";
+import {
+  roadmapTracks,
+  jsExpansionIds,
+  pyExpansionIds,
+  reactExpansionIds,
+  cssExpansionIds,
+  algoExpansionIds,
+} from "@/data/roadmap";
 
 export const tracks: Track[] = [
   {
     id: "javascript-adventures",
     title: "JavaScript Adventures",
     description:
-      "Explore Variable Village, conquer Function Forest, and loop through Loop Lake!",
+      "Explore Variable Village, conquer Function Forest, loop through Loop Lake, and master async, the DOM, classes, and ES6+ power features!",
     icon: "\u{26A1}",
     color: "#F7DF1E",
     gradient: "from-yellow-400 to-amber-500",
     category: "language",
-    lessonIds: ["js-variables", "js-functions", "js-loops"],
-    totalXP: 450,
+    lessonIds: ["js-variables", "js-functions", "js-loops", ...jsExpansionIds],
+    totalXP: 450 + jsExpansionIds.length * 150,
   },
   {
     id: "python-quest",
     title: "Python Quest",
     description:
-      "Decode ancient Python scrolls, tame lists, and master the art of Pythonic code!",
+      "Decode ancient Python scrolls, tame lists, master OOP, async, decorators, dataclasses, testing, and the full Pythonic toolkit!",
     icon: "\u{1F40D}",
     color: "#3776AB",
     gradient: "from-blue-500 to-green-500",
     category: "language",
-    lessonIds: ["py-basics", "py-lists", "py-functions"],
-    totalXP: 450,
+    lessonIds: ["py-basics", "py-lists", "py-functions", ...pyExpansionIds],
+    totalXP: 450 + pyExpansionIds.length * 150,
   },
   {
     id: "java-kingdom",
@@ -55,13 +62,13 @@ export const tracks: Track[] = [
     id: "algorithm-arena",
     title: "Algorithm Arena",
     description:
-      "Battle through sorting challenges, conquer Big O, and master the art of efficiency!",
+      "Battle sorting, Big O, graphs, dynamic programming, trees, backtracking, and bit manipulation — every pattern you need to crack interviews!",
     icon: "\u{1F9E9}",
     color: "#F59E0B",
     gradient: "from-orange-400 to-red-500",
     category: "algorithms",
-    lessonIds: ["algo-bigO", "algo-sorting", "algo-searching"],
-    totalXP: 500,
+    lessonIds: ["algo-bigO", "algo-sorting", "algo-searching", ...algoExpansionIds],
+    totalXP: 500 + algoExpansionIds.length * 165,
   },
   {
     id: "ai-odyssey",
@@ -102,13 +109,13 @@ export const tracks: Track[] = [
     id: "react-realm",
     title: "React Realm",
     description:
-      "Build kingdoms with Components, forge Props, and manage State like a true ruler!",
+      "Build kingdoms with Components, forge Props, manage State, and master Hooks, Context, performance, forms, patterns, and data fetching!",
     icon: "\u{269B}\u{FE0F}",
     color: "#61DAFB",
     gradient: "from-cyan-400 to-blue-500",
     category: "techstack",
-    lessonIds: ["react-components", "react-props", "react-state"],
-    totalXP: 450,
+    lessonIds: ["react-components", "react-props", "react-state", ...reactExpansionIds],
+    totalXP: 450 + reactExpansionIds.length * 155,
   },
   {
     id: "docker-dock",
@@ -138,13 +145,13 @@ export const tracks: Track[] = [
     id: "css-sorcery",
     title: "CSS Sorcery",
     description:
-      "Cast Flexbox spells, brew Grid potions, and animate elements with pure magic!",
+      "Cast Flexbox spells, brew Grid potions, animate elements, and master custom properties, responsive design, transforms, typography, and Tailwind!",
     icon: "\u{1F3A8}",
     color: "#EC4899",
     gradient: "from-pink-400 to-purple-600",
     category: "ui",
-    lessonIds: ["css-flexbox", "css-grid", "css-animations"],
-    totalXP: 450,
+    lessonIds: ["css-flexbox", "css-grid", "css-animations", ...cssExpansionIds],
+    totalXP: 450 + cssExpansionIds.length * 140,
   },
   ...roadmapTracks,
 ];

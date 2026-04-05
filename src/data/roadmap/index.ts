@@ -19,6 +19,15 @@ import {
   w3SchoolsExpansionLessons,
   w3SchoolsExpansionTracks,
 } from "./w3schools-expansion";
+import { megaExpansionLessons, megaExpansionTracks } from "./mega-expansion";
+import {
+  allExpansionLessons,
+  jsExpansionIds,
+  pyExpansionIds,
+  reactExpansionIds,
+  cssExpansionIds,
+  algoExpansionIds,
+} from "./track-expansions";
 
 export const roadmapTracks: Track[] = [
   ...webStackTracks,
@@ -28,6 +37,7 @@ export const roadmapTracks: Track[] = [
   ...communityPlatformExpansionTracks,
   ...communityCertExpansionTracks,
   ...w3SchoolsExpansionTracks,
+  ...megaExpansionTracks,
 ];
 
 export const roadmapLessons: Lesson[] = [
@@ -38,6 +48,9 @@ export const roadmapLessons: Lesson[] = [
   ...communityPlatformExpansionLessons,
   ...communityCertExpansionLessons,
   ...w3SchoolsExpansionLessons,
+  ...megaExpansionLessons,
+  ...allExpansionLessons,
 ];
 
 export { aiDeveloperLessons, aiDeveloperLessonIds };
+export { jsExpansionIds, pyExpansionIds, reactExpansionIds, cssExpansionIds, algoExpansionIds };

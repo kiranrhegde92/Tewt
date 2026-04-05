@@ -30,6 +30,78 @@ const challenges = [
     icon: "🎨",
     href: "/tracks/css-sorcery",
   },
+  {
+    title: "Bug Dragon Defense",
+    description: "Catch a crashing Java exception before the dragon turns your stack trace into smoke.",
+    track: "Java Kingdom",
+    xp: 55,
+    icon: "☕",
+    href: "/tracks/java-kingdom",
+  },
+  {
+    title: "Type or Die",
+    description: "Race through TypeScript type definitions — generics, utility types, and conditional types.",
+    track: "TypeScript Terrains",
+    xp: 50,
+    icon: "🔷",
+    href: "/tracks/typescript-terrains",
+  },
+  {
+    title: "Promise Juggler",
+    description: "Arrange async/await code lines in the correct order before the timeout fires!",
+    track: "JavaScript Adventures",
+    xp: 45,
+    icon: "🔄",
+    href: "/tracks/javascript-adventures",
+  },
+  {
+    title: "Query Quest",
+    description: "Match SQL clauses to their roles — SELECT, JOIN, GROUP BY, and window functions.",
+    track: "SQL Swamp",
+    xp: 50,
+    icon: "🗃️",
+    href: "/tracks/sql-swamp",
+  },
+  {
+    title: "Goroutine Gauntlet",
+    description: "Order Go concurrency code — channels, WaitGroups, and select statements.",
+    track: "Go Highlands",
+    xp: 55,
+    icon: "🐹",
+    href: "/tracks/go-highlands",
+  },
+  {
+    title: "Borrow Checker Blitz",
+    description: "Identify which Rust snippets violate ownership rules before the compiler does.",
+    track: "Rust Frontier",
+    xp: 60,
+    icon: "🦀",
+    href: "/tracks/rust-frontier",
+  },
+  {
+    title: "Pattern Patrol",
+    description: "Match design patterns to their intent — Builder, Observer, Strategy, Proxy.",
+    track: "Design Patterns Palace",
+    xp: 50,
+    icon: "🎭",
+    href: "/tracks/design-patterns-palace",
+  },
+  {
+    title: "React Hook Scramble",
+    description: "Fix the broken React component — identify the missing dependency, stale closure, or wrong hook order.",
+    track: "React Realm",
+    xp: 50,
+    icon: "⚛️",
+    href: "/tracks/react-realm",
+  },
+  {
+    title: "k8s Deployment Duel",
+    description: "Arrange Kubernetes YAML fields in the correct order to deploy your first pod.",
+    track: "Kubernetes Cloud",
+    xp: 55,
+    icon: "☸️",
+    href: "/tracks/kubernetes-cloud",
+  },
 ];
 
 export default function DailyChallenge() {
@@ -47,7 +119,6 @@ export default function DailyChallenge() {
           transition={{ duration: 0.5 }}
           className="relative overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 p-8 sm:p-10"
         >
-          {/* Sparkle decoration */}
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
