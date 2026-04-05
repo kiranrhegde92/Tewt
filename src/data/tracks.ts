@@ -1,4 +1,5 @@
 import { Track } from "@/types";
+import { roadmapTracks } from "@/data/roadmap";
 
 export const tracks: Track[] = [
   {
@@ -66,7 +67,7 @@ export const tracks: Track[] = [
     id: "ai-odyssey",
     title: "AI Odyssey",
     description:
-      "Train, evaluate, rank, adapt, and ship AI systems with rewards, transformers, embeddings, agents, multimodal workflows, and safety guardrails.",
+      "Train, integrate, evaluate, rank, adapt, and ship AI systems with rewards, frameworks, agents, multimodal workflows, MLOps, and safety guardrails.",
     icon: "\u{1F916}",
     color: "#14B8A6",
     gradient: "from-emerald-400 to-cyan-500",
@@ -78,19 +79,24 @@ export const tracks: Track[] = [
       "ai-unsupervised",
       "ai-neural-networks",
       "ai-training-loop",
+      "ai-dev-ml-basics",
       "ai-evaluation",
       "ai-reinforcement",
       "ai-transformers",
       "ai-embeddings-search",
       "ai-recommenders",
       "ai-prompt-rag",
+      "ai-dev-integration",
+      "ai-dev-ml-frameworks",
       "ai-fine-tuning",
       "ai-agents",
       "ai-multimodal",
+      "ai-dev-mlops",
+      "ai-dev-tools",
       "ai-deployment-monitoring",
       "ai-safety",
     ],
-    totalXP: 3035,
+    totalXP: 3805,
   },
   {
     id: "react-realm",
@@ -140,4 +146,5 @@ export const tracks: Track[] = [
     lessonIds: ["css-flexbox", "css-grid", "css-animations"],
     totalXP: 450,
   },
+  ...roadmapTracks,
 ];

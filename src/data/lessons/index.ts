@@ -35,6 +35,7 @@ import { aiEvaluation, aiEmbeddingsSearch } from "./ai-metrics";
 import { aiFineTuning, aiAgents } from "./ai-advanced-systems";
 import { aiMultimodal, aiDeploymentMonitoring } from "./ai-modern-systems";
 import { aiReinforcement, aiRecommenders } from "./ai-expansion";
+import { roadmapLessons, aiDeveloperLessons } from "@/data/roadmap";
 
 export const allLessons: Record<string, Lesson> = {
   // JavaScript
@@ -79,6 +80,9 @@ export const allLessons: Record<string, Lesson> = {
   "ai-multimodal": aiMultimodal,
   "ai-deployment-monitoring": aiDeploymentMonitoring,
   "ai-safety": aiSafety,
+  ...Object.fromEntries(
+    [...roadmapLessons, ...aiDeveloperLessons].map((lesson) => [lesson.id, lesson])
+  ),
 
   // Algorithms
   "algo-bigO": algoBigO,
