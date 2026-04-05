@@ -45,6 +45,8 @@ const learningStepTypes = [
   "interactive-visual",
 ];
 
+const practiceStepTypes = new Set(["quiz", "puzzle", "match", "typeracer"]);
+
 export default function LessonPage({
   params,
 }: {
@@ -68,8 +70,9 @@ export default function LessonPage({
       : 0;
 
   useEffect(() => {
+    const stepType = lesson?.steps[safeRequestedStep]?.type;
     setCurrentStep(safeRequestedStep);
-    setCanProceed(true);
+    setCanProceed(!stepType || !practiceStepTypes.has(stepType));
   }, [lessonId, safeRequestedStep]);
 
   if (!lesson || !track) {
@@ -88,8 +91,9 @@ export default function LessonPage({
 
   const handleNext = () => {
     if (currentStep < lesson.steps.length - 1) {
+      const nextStep = lesson.steps[currentStep + 1];
       setCurrentStep(currentStep + 1);
-      setCanProceed(true);
+      setCanProceed(!practiceStepTypes.has(nextStep.type));
       return;
     }
 
